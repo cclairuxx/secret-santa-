@@ -1,0 +1,300 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Letterina di Chichi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;700;800&family=DM+Sans:wght@400;500;600;700&family=Archivo+Black&display=swap">
+<style>
+/* Layout: poster natalizio. Prima una busta verde con lettere enormi, poi la lettera crema che si scrive da sola. Decorazioni piatte rosse, gialle e azzurre */
+:root {
+  --green: #134a3b;
+  --green-deep: #0e3a2e;
+  --green-light: #1d6b55;
+  --cream: #f7eddc;
+  --red: #7d1a2f;
+  --yellow: #f9ef9f;
+  --blue: #6fa1e8;
+  --muted: #4d6a5f;
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-heavy: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background-color: var(--green);
+  background-image:
+    radial-gradient(circle at 12px 18px, rgba(247,237,220,.55) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 30px 9px, rgba(247,237,220,.4) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 20px 40px, rgba(247,237,220,.5) 0 1.6px, transparent 2.2px);
+  background-size: 47px 53px, 61px 67px, 83px 79px;
+  color: var(--green-deep);
+  font-family: var(--font-body);
+  padding-block: 30px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.snow { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.snow i { position: absolute; top: -10px; border-radius: 50%; background: var(--cream); animation: fall linear infinite; }
+@keyframes fall { to { transform: translate3d(var(--dx, 20px), 105vh, 0); } }
+.wrap { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
+
+/* Busta iniziale */
+.scene { display: flex; flex-direction: column; align-items: center; gap: 34px; padding-top: 28px; transition: opacity .45s ease, transform .45s ease; }
+.scene.leaving { opacity: 0; transform: translateY(-24px) scale(.96); }
+.env {
+  position: relative; width: 100%; aspect-ratio: 1 / 1.22; perspective: 900px;
+  animation: env-in .8s cubic-bezier(.2,.9,.3,1.2) backwards;
+}
+@keyframes env-in { from { transform: translateY(40px) scale(.9); opacity: 0; } }
+.env-body {
+  position: absolute; inset: 0; border-radius: 18px; background-color: #7d1a2f; overflow: hidden;
+  background-image:
+    radial-gradient(circle at 12px 18px, rgba(247,237,220,.45) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 30px 9px, rgba(247,237,220,.35) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 20px 40px, rgba(247,237,220,.45) 0 1.6px, transparent 2.2px);
+  background-size: 47px 53px, 61px 67px, 83px 79px;
+  box-shadow: 0 26px 60px rgba(0,0,0,.4);
+}
+.env-text {
+  position: absolute; left: 6%; right: 4%; bottom: 5%; margin: 0; color: var(--cream);
+  font-family: var(--font-heavy); font-weight: 400; text-transform: lowercase; letter-spacing: -.05em;
+  line-height: .72; transform: rotate(-5deg); transform-origin: 0 100%;
+  font-size: clamp(5.4rem, 37vw, 11rem);
+  -webkit-text-stroke: .045em var(--cream); paint-order: stroke fill; stroke-linejoin: round;
+}
+.env-text span { display: block; }
+.env-text span:nth-child(2) { margin-left: 34%; }
+.env-text span:nth-child(3) { margin-left: 8%; }
+.flap {
+  position: absolute; left: 0; right: 0; top: 0; height: 40%; background: #5c1224;
+  clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center;
+  transition: transform .9s cubic-bezier(.5,0,.2,1), background-color .9s;
+  z-index: 3;
+}
+.seal {
+  position: absolute; left: 50%; top: 40%; width: 52px; height: 52px; margin: -34px 0 0 -26px; border-radius: 50%;
+  background: var(--yellow); z-index: 4; display: grid; place-items: center; color: var(--green-deep);
+  transition: transform .5s ease-in, opacity .5s ease-in;
+}
+.seal svg { width: 28px; height: 28px; }
+.scene.open .flap { transform: rotateX(180deg); background-color: #450d1a; }
+.scene.open .seal { transform: scale(0); opacity: 0; }
+
+.open-btn {
+  font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; letter-spacing: .02em; color: var(--green-deep);
+  background: var(--yellow); border: 0; border-radius: 999px; padding: 16px 34px; cursor: pointer;
+  animation: pulse 2.2s 1.2s ease-in-out infinite; transition: opacity .3s, transform .3s;
+}
+.open-btn:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
+.open-btn:disabled { animation: none; opacity: 0; transform: translateY(8px); cursor: default; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+/* Lettera */
+.letter {
+  position: relative; background: var(--cream); border-radius: 26px;
+  padding: 48px 28px 38px; box-shadow: 0 26px 60px rgba(0,0,0,.4);
+  animation: letter-up 1s cubic-bezier(.2,.8,.2,1) backwards;
+}
+@keyframes letter-up { from { transform: translateY(60px) scale(.94); opacity: 0; } }
+
+h1 {
+  font-family: var(--font-display); font-weight: 800; color: var(--green-deep);
+  letter-spacing: -.05em; font-size: clamp(3.2rem, 18vw, 5.2rem); line-height: .86; margin: 18px 0 0;
+}
+h1 .red { color: var(--red); }
+.to { font-size: 1.05rem; font-weight: 700; margin: 30px 0 10px; }
+p.body { font-size: 1.02rem; line-height: 1.6; margin: 0 0 12px; font-weight: 400; color: #2f4d43; }
+.w { display: inline-block; white-space: nowrap; }
+.c { opacity: 0; animation: ch .08s forwards; }
+@keyframes ch { from { opacity: 0; transform: translateY(4px) scale(.9); } to { opacity: 1; transform: none; } }
+
+ul { list-style: none; margin: 22px 0 0; padding: 0; }
+li {
+  display: flex; align-items: center; gap: 14px; min-height: 66px; padding: 10px 0;
+  border-top: 1.5px solid rgba(14,58,46,.18);
+  animation: item-in .7s cubic-bezier(.2,.9,.3,1.1) backwards; animation-delay: var(--d, 5.6s);
+}
+@keyframes item-in { from { opacity: 0; transform: translateX(-30px); } }
+.box { flex: none; width: 34px; height: 34px; }
+.box rect { fill: none; stroke: var(--green-deep); stroke-width: 2.5; rx: 17; }
+.box path { fill: none; stroke: var(--red); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 34; stroke-dashoffset: 34; animation: tick .5s ease-out forwards; animation-delay: calc(var(--d, 5.6s) + .5s); }
+@keyframes tick { to { stroke-dashoffset: 0; } }
+.txt { flex: 1; min-width: 0; font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
+.txt small { display: block; font-size: .85rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.hl {
+  background: linear-gradient(transparent 52%, rgba(125,26,47,.2) 52% 96%, transparent 96%) no-repeat;
+  background-size: 0% 100%; animation: mark .7s calc(var(--d, 5.6s) + .9s) ease-out forwards;
+}
+@keyframes mark { to { background-size: 100% 100%; } }
+a.go {
+  flex: none; font-family: var(--font-body); font-weight: 700; font-size: .76rem; letter-spacing: .05em; text-decoration: none;
+  color: var(--green-deep); border: 2px solid var(--green-deep); padding: 7px 14px; border-radius: 999px; white-space: nowrap;
+}
+a.go:hover, a.go:focus-visible { background: var(--green-deep); color: var(--cream); outline: none; }
+
+.sign { position: relative; margin-top: 30px; min-height: 78px; animation: line-in .6s var(--sd, 9.8s) ease-out backwards; }
+@keyframes line-in { from { opacity: 0; transform: translateY(14px); } }
+.sign span { display: block; font-size: .95rem; color: var(--muted); margin-bottom: 2px; }
+.sign b {
+  display: block; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; letter-spacing: -.04em; line-height: 1; color: var(--red);
+  clip-path: inset(0 100% 0 0); animation: write 1s calc(var(--sd, 9.8s) + .5s) steps(14) forwards; width: max-content;
+}
+@keyframes write { to { clip-path: inset(0 0 0 0); } }
+
+/* Decorazioni piatte */
+.orn { position: absolute; pointer-events: none; animation: orn-in .6s cubic-bezier(.2,.9,.3,1.3) backwards; }
+@keyframes orn-in { from { opacity: 0; transform: scale(.3) rotate(-30deg); } }
+.orn svg { display: block; width: 100%; height: auto; overflow: visible; }
+.gift { top: -40px; right: -8px; width: 98px; transform: rotate(9deg); animation-delay: 1.2s; }
+.flake1 { top: 112px; right: 20px; width: 40px; color: var(--green); animation: orn-in .6s 1.4s backwards, spin 18s linear infinite; }
+.flake2 { left: -14px; top: 46%; width: 34px; color: var(--red); animation: orn-in .6s 1.5s backwards, spin 24s linear infinite reverse; }
+.bauble { right: 4px; bottom: -4px; width: 78px; transform-origin: 50% 0; animation: orn-in .6s calc(var(--sd, 9.8s) + .9s) backwards, swing 4s calc(var(--sd, 9.8s) + 1.6s) ease-in-out infinite; }
+/* decorazioni della busta */
+.env .e-gift { top: -34px; right: -10px; width: 96px; transform: rotate(10deg); z-index: 5; animation-delay: .7s; }
+.env .e-bauble { --b: var(--blue); --d: var(--red); left: -6px; bottom: -22px; width: 74px; transform-origin: 50% 0; z-index: 5; animation: orn-in .6s .9s backwards, swing 4s 1.6s ease-in-out infinite; }
+.env .e-flake { right: 16px; bottom: 14px; width: 44px; color: var(--yellow); z-index: 5; animation: orn-in .6s 1.1s backwards, spin 20s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes swing { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .snow { display: none; }
+  .hl { background-size: 100% 100%; }
+  .box path { stroke-dashoffset: 0; }
+  .sign b { clip-path: none; }
+  .c { opacity: 1; }
+}
+@media (max-width: 380px) {
+  li { flex-wrap: wrap; }
+  a.go { margin-left: 48px; }
+  .bauble { width: 64px; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="s-gift" viewBox="0 0 100 100"><rect x="12" y="34" width="76" height="20" rx="3" fill="#6fa1e8"/><rect x="18" y="54" width="64" height="40" rx="3" fill="#4f84d4"/><rect x="43" y="34" width="14" height="60" fill="#7d1a2f"/><path d="M50 34 C28 6 6 20 50 34 Z" fill="#7d1a2f"/><path d="M50 34 C72 6 94 20 50 34 Z" fill="#7d1a2f"/></symbol>
+  <symbol id="s-bauble" viewBox="0 0 100 120"><rect x="38" y="0" width="24" height="16" rx="3" fill="#f7eddc"/><circle cx="50" cy="70" r="46" style="fill:var(--b,#7d1a2f)"/><path d="M8 66 L22 54 L36 66 L50 54 L64 66 L78 54 L92 66" fill="none" stroke="#f9ef9f" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30" cy="88" r="5.5" style="fill:var(--d,#6fa1e8)"/><circle cx="50" cy="94" r="5.5" style="fill:var(--d,#6fa1e8)"/><circle cx="70" cy="88" r="5.5" style="fill:var(--d,#6fa1e8)"/></symbol>
+  <symbol id="s-flake" viewBox="-20 -20 40 40"><path d="M0 -17V17M-17 0H17M-12 -12L12 12M-12 12L12 -12" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="snow" id="snow" aria-hidden="true"></div>
+
+<main class="wrap" id="stage">
+  <section class="scene" id="scene">
+    <div class="env">
+      <div class="env-body">
+        <p class="env-text" aria-label="ho ho ho"><span>ho</span><span>ho</span><span>ho</span></p>
+      </div>
+      <div class="flap"></div>
+      <div class="seal" aria-hidden="true"><svg viewBox="-20 -20 40 40" style="color:#0e3a2e"><use href="#s-flake"/></svg></div>
+      <div class="orn e-gift" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#s-gift"/></svg></div>
+      <div class="orn e-bauble" aria-hidden="true"><svg viewBox="0 0 100 120"><use href="#s-bauble"/></svg></div>
+      <div class="orn e-flake" aria-hidden="true"><svg viewBox="-20 -20 40 40"><use href="#s-flake"/></svg></div>
+    </div>
+    <button class="open-btn" id="open" type="button">Apri busta</button>
+  </section>
+
+  <article class="letter" id="letter" hidden>
+    <div class="orn gift" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#s-gift"/></svg></div>
+    <div class="orn flake1" aria-hidden="true"><svg viewBox="-20 -20 40 40"><use href="#s-flake"/></svg></div>
+    <div class="orn flake2" aria-hidden="true"><svg viewBox="-20 -20 40 40"><use href="#s-flake"/></svg></div>
+
+    <h1>chichi’s<br><span class="red">gifts</span></h1>
+    <p class="to">Per il/la mio/a Babbo/a</p>
+    <p class="body">Immagino tu sia già emozionato/a all’idea di dover scegliere un regalo per me.</p>
+    <p class="body">Per fortuna ho deciso di venirti incontro con qualche indicazione. Consideralo un gesto di grande generosità da parte mia.</p>
+
+    <ul>
+      <li>
+        <svg class="box" viewBox="0 0 34 34" aria-hidden="true"><rect x="2" y="2" width="30" height="30"/><path d="M8 18 L15 25 L28 8"/></svg>
+        <span class="txt"><span class="hl">Borsa Uniqlo nera</span></span>
+      </li>
+      <li>
+        <svg class="box" viewBox="0 0 34 34" aria-hidden="true"><rect x="2" y="2" width="30" height="30"/><path d="M8 18 L15 25 L28 8"/></svg>
+        <span class="txt">Tacchi <span class="hl">numero 38</span></span>
+        <a class="go" href="https://shop.mango.com/it/it/p/donna/scarpe/sandali/sandali-tacco-vernice/37072903/78/00" target="_blank" rel="noopener">Vedi</a>
+      </li>
+      <li>
+        <svg class="box" viewBox="0 0 34 34" aria-hidden="true"><rect x="2" y="2" width="30" height="30"/><path d="M8 18 L15 25 L28 8"/></svg>
+        <span class="txt">Mulac<small>3D Verse Perfect Duo</small></span>
+        <a class="go" href="https://mulaccosmetics.com/collections/makeup/products/3d-verse-perfect-duo" target="_blank" rel="noopener">Vedi</a>
+      </li>
+      <li>
+        <svg class="box" viewBox="0 0 34 34" aria-hidden="true"><rect x="2" y="2" width="30" height="30"/><path d="M8 18 L15 25 L28 8"/></svg>
+        <span class="txt">Body bellissimo in <span class="hl">taglia S</span></span>
+        <a class="go" href="https://www.intimissimi.com/it/product/body_manica_lunga_in_pizzo_elastico-BOD191.html?dwvar_BOD191_Z_COL_INT=019" target="_blank" rel="noopener">Vedi</a>
+      </li>
+    </ul>
+
+    <div class="sign">
+      <span>Con affetto,</span><b>Chichi</b>
+      <div class="orn bauble" aria-hidden="true"><svg viewBox="0 0 100 120"><use href="#s-bauble"/></svg></div>
+    </div>
+  </article>
+</main>
+
+<script>
+(function () {
+  var snow = document.getElementById('snow');
+  for (var i = 0; i < 26; i++) {
+    var s = document.createElement('i');
+    var size = 2 + Math.random() * 4;
+    s.style.cssText = 'left:' + (Math.random() * 100) + '%;width:' + size + 'px;height:' + size + 'px;' +
+      'animation-duration:' + (8 + Math.random() * 9) + 's;animation-delay:-' + (Math.random() * 12) + 's;' +
+      '--dx:' + (Math.random() * 60 - 30) + 'px;opacity:' + (0.35 + Math.random() * 0.45);
+    snow.appendChild(s);
+  }
+
+  var letter = document.getElementById('letter');
+  var scene = document.getElementById('scene');
+  var btn = document.getElementById('open');
+
+  function write(root) {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var t = 1.1, step = 0.02;
+    root.querySelectorAll('h1, .to, p.body').forEach(function (el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      var nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); t += step; return; }
+          var w = document.createElement('span'); w.className = 'w';
+          part.split('').forEach(function (ch) {
+            var c = document.createElement('span'); c.className = 'c'; c.textContent = ch;
+            if (!reduce) c.style.animationDelay = t.toFixed(2) + 's';
+            t += /[,.]/.test(ch) ? step * 4 : step;
+            w.appendChild(c);
+          });
+          frag.appendChild(w);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+      t += 0.3;
+    });
+    t += 0.2;
+    root.querySelectorAll('li').forEach(function (li) {
+      li.style.setProperty('--d', t.toFixed(2) + 's'); t += 0.9;
+    });
+    root.querySelector('.sign').style.setProperty('--sd', t.toFixed(2) + 's');
+  }
+  write(letter);
+
+  btn.addEventListener('click', function () {
+    btn.disabled = true;
+    scene.classList.add('open');
+    setTimeout(function () { scene.classList.add('leaving'); }, 1100);
+    setTimeout(function () {
+      scene.hidden = true;
+      letter.hidden = false;
+      window.scrollTo(0, 0);
+    }, 1550);
+  });
+})();
+</script>
+
+</body></html>
